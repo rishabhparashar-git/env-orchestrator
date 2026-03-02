@@ -11,8 +11,10 @@ import { useState, useRef } from "react";
 import { ExportBackupModal } from "@/components/ExportBackupModal";
 import { ImportBackupModal } from "@/components/ImportBackupModal";
 
+import { Trash2 as TrashIcon } from "lucide-react";
+
 export default function Settings() {
-  const { overrides, addOverride, updateOverride, deleteOverride, theme, setTheme, exportState, importState } = useEnvStore();
+  const { overrides, addOverride, updateOverride, deleteOverride, theme, setTheme, exportState, importState, clearAllData } = useEnvStore();
 
   const [newOverrideName, setNewOverrideName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,6 +67,12 @@ export default function Settings() {
   const handleBackupFirst = () => {
     setIsImportOpen(false);
     setIsExportOpen(true);
+  };
+
+  const handleClearAll = () => {
+    if (window.confirm("WARNING: Are you sure you want to completely erase this workspace? This will permanently delete all Projects, Matrix keys, and Overrides. Please make sure you have exported a Backup first!")) {
+      clearAllData();
+    }
   };
 
   return (
@@ -182,6 +190,10 @@ export default function Settings() {
           />
           <Button className="gap-2 flex-1 max-w-[200px]" variant="secondary" onClick={() => fileInputRef.current?.click()}>
             <Upload className="w-4 h-4" /> Import Backup
+          </Button>
+
+          <Button className="gap-2 flex-1 max-w-[200px]" variant="destructive" onClick={handleClearAll}>
+            <TrashIcon className="w-4 h-4" /> Clear Workspace
           </Button>
         </div>
       </section>

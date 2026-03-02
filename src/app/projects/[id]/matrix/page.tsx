@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { ArrowLeft, Download, Eye, EyeOff, Copy, Check, Bookmark, X, Import } from "lucide-react";
+import { ArrowLeft, Download, Eye, EyeOff, Copy, Check, Bookmark, X, Import, ArrowRightLeft } from "lucide-react";
 import Link from "next/link";
 import { ExportPreviewModal } from "@/components/ExportPreviewModal";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -349,6 +349,12 @@ export default function EnvMatrixForm() {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link href={`/projects/${id}/compare`}>
+            <Button variant="ghost" className="gap-2 text-muted-foreground hover:text-primary">
+              <ArrowRightLeft className="w-4 h-4" /> Compare
+            </Button>
+          </Link>
+
           <Select
             value={privacyMode as unknown === false ? "show" : (privacyMode as unknown === true ? "hide" : privacyMode)}
             onValueChange={(v: "show" | "hide" | "partial") => setPrivacyMode(v)}
@@ -446,9 +452,9 @@ export default function EnvMatrixForm() {
                               if (isDup) e.preventDefault();
                               else handleImportPreset(op);
                             }} disabled={isDup} className="cursor-pointer text-xs justify-between">
-                              <span>{op.name} 
+                              <span>{op.name}
                                 {/* {isDup && <span className="text-muted-foreground ml-1">(Duplicate)</span>} */}
-                                </span>
+                              </span>
                               <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{Object.keys(op.selections).length} mappings</span>
                             </DropdownMenuItem>
                           );

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Save, Plus, Trash2, Import } from "lucide-react";
+import { ArrowLeft, Save, Plus, Trash2, Import, ArrowRightLeft } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { ImportProjectModal } from "@/components/ImportProjectModal";
@@ -95,6 +95,11 @@ export default function ProjectSchemaBuilder() {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          <Link href={`/projects/${id}/compare`}>
+            <Button variant="ghost" className="gap-2 text-muted-foreground hover:text-primary">
+              <ArrowRightLeft className="w-4 h-4" /> Compare
+            </Button>
+          </Link>
           <Button variant="outline" onClick={() => setIsImportModalOpen(true)} className="gap-2">
             <Import className="w-4 h-4" /> Import
           </Button>

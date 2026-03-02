@@ -92,6 +92,7 @@ export type EnvStore = {
   
   exportState: () => string;
   importState: (json: string) => void;
+  clearAllData: () => void;
 };
 
 export const useEnvStore = create<EnvStore>()(
@@ -158,7 +159,17 @@ export const useEnvStore = create<EnvStore>()(
         } catch (e) {
           console.error("Failed to import state:", e);
         }
-      }
+      },
+      clearAllData: () => set({
+        projects: [],
+        presets: [],
+        overrides: [
+          { id: "1", name: "Stage", options: ["DEV", "TEST", "PRELIVE", "PROD"] },
+          { id: "2", name: "Client", options: ["CLIENT-A", "CLIENT-B"] }
+        ],
+        schemas: [],
+        values: {},
+      })
     }),
     {
       name: "env-orchestrator-storage",
