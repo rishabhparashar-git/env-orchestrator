@@ -21,14 +21,14 @@ A client-side, zero-persistence (serverless) environment management tool designe
 
 
 * **Waterfall Resolution**: Compute final values based on specificity: `Global Default` < `Level 1 Override` < `Level 2 Override`.
-* **Data Portability**: Import/Export system state as a single encrypted or plain JSON file.
+* **Data Portability**: Import/Export system state exclusively as opaque Two-Tier AES-256 encrypted `.backup` files to guarantee metadata and configuration integrity.
 * **Session Management**: Prevent data corruption via a single-tab lock mechanism.
 
 ### **1.3 Data Security & Persistence**
 
 * **No Backend**: No data leaves the browser unless manually exported by the user.
 * **LocalStorage**: Real-time sync of state to browser storage.
-* **Privacy Mode**: UI-level masking of sensitive strings (values replaced with `••••`).
+* **Privacy Mode**: UI-level masking of sensitive strings with 'Show', 'Hide', and 'Partial (Reveal on Focus)' toggles.
 
 ---
 
@@ -100,7 +100,7 @@ Build a Zustand store to manage:
 - Overrides (e.g., { name: 'Stage', options: ['Dev', 'Prod'] })
 - Schema (Linking Project Keys to Overrides)
 - Values (A flat lookup object: record<string, string> where the key is a hash of project_key_overrideOption).
-Ensure the store is persisted to LocalStorage. Create a 'Privacy Mode' toggle that masks all values in the state with '••••' in the UI.
+Ensure the store is persisted to LocalStorage. Create a 'Privacy Mode' toggle ('show', 'hide', 'partial') that masks values, supporting focus-reveal and group-level toggling.
 
 ```
 
@@ -123,6 +123,6 @@ Implement an 'Export' utility that takes a project ID and a list of selected ove
 | **Icons** | **Lucide React** | Industry standard, lightweight, supports neon colors well. |
 | **State Persistence** | **Zustand + LocalStorage** | Free and local. **Tradeoff:** Data is browser-specific. Use JSON export for team sharing. |
 | **Deployment** | **Vercel (Hobby)** | 100% free for static sites. Fast global CDN. |
-| **Backup Encryption** | **Web Crypto API** | Built into browser. **Tradeoff:** Users must remember their Master Password; no 'Forgot Password' is possible. |
+| **Backup Encryption** | **CryptoJS (AES-256)** | Two-Tier Obfuscation Strategy. Outer metadata layer is encrypted via versioned System Keys. Inner payload is encrypted via User Key or System Key. Outputs completely opaque `.backup` blobs to ensure zero-persistence integrity. |
 
 ---
