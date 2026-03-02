@@ -33,8 +33,12 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @layer base {
@@ -93,25 +97,25 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 6%;
     --popover-foreground: 0 0% 98%;
-    
+
     --primary: 135 94% 65%;
     --primary-foreground: 0 0% 10%;
     --secondary: 191 97% 77%;
     --secondary-foreground: 0 0% 10%;
-    
+
     --muted: 240 5% 15%;
     --muted-foreground: 240 5% 65%;
-    
+
     --accent: 275 100% 65%;
     --accent-foreground: 0 0% 98%;
-    
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    
+
     --border: 0 0% 20%;
     --input: 0 0% 15%;
     --ring: 135 94% 65%;
-    
+
     --radius: 1rem;
   }
 
@@ -123,25 +127,25 @@
     --card-foreground: 240 10% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
-    
+
     --primary: 160 60% 40%;
     --primary-foreground: 0 0% 100%;
     --secondary: 190 70% 50%;
     --secondary-foreground: 0 0% 100%;
-    
+
     --muted: 140 20% 90%;
     --muted-foreground: 240 5% 40%;
-    
+
     --accent: 140 50% 80%;
     --accent-foreground: 240 10% 10%;
-    
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    
+
     --border: 140 20% 80%;
     --input: 140 20% 85%;
     --ring: 160 60% 40%;
-    
+
     --radius: 1rem;
   }
 }
@@ -153,12 +157,12 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Glassmorphism helpers for the Liquid Glass themes */
   .liquid-glass-dark .glass-panel {
     @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-black/50;
   }
-  
+
   .liquid-glass-light .glass-panel {
     @apply bg-white/40 backdrop-blur-md border border-white/40 shadow-xl shadow-black/5;
   }

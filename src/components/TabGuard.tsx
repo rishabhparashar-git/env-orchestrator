@@ -37,7 +37,8 @@ export function TabGuard({ children }: { children: React.ReactNode }) {
             Active Session Detected
           </h1>
           <p className="text-muted-foreground mb-6">
-            You already have this application open in another tab. To prevent data corruption, please switch back to the original tab.
+            You already have this application open in another tab. To prevent
+            data corruption, please switch back to the original tab.
           </p>
           <button
             onClick={() => {

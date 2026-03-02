@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "OmniEnv",
-  description: "A client-side environment management tool to handle n-dimensional environment overrides.",
+  description:
+    "A client-side environment management tool to handle n-dimensional environment overrides.",
 };
 
 export default function RootLayout({
@@ -29,10 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-300`}
       >
-        <ThemeProvider attribute="class" defaultTheme="liquid-glass-dark" enableSystem={false}>
-          <TabGuard>
-            {children}
-          </TabGuard>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="liquid-glass-dark"
+          enableSystem={false}
+        >
+          <TabGuard>{children}</TabGuard>
         </ThemeProvider>
       </body>
     </html>

@@ -31,7 +31,6 @@ const encryptedStorage = {
   },
 };
 
-
 export type Project = {
   id: string;
   name: string;
@@ -89,7 +88,7 @@ export type EnvStore = {
   setValue: (hash: string, value: string) => void;
   setPrivacyMode: (mode: "show" | "hide" | "partial") => void;
   setTheme: (theme: EnvStore["theme"]) => void;
-  
+
   exportState: () => string;
   importState: (json: string) => void;
   clearAllData: () => void;
@@ -102,48 +101,68 @@ export const useEnvStore = create<EnvStore>()(
       presets: [],
       overrides: [
         { id: "1", name: "Stage", options: ["DEV", "TEST", "PRELIVE", "PROD"] },
-        { id: "2", name: "Client", options: ["CLIENT-A", "CLIENT-B"] }
+        { id: "2", name: "Client", options: ["CLIENT-A", "CLIENT-B"] },
       ],
       schemas: [],
       values: {},
       privacyMode: "show",
       theme: "liquid-glass-dark", // Default requested
 
-      addProject: (p) => set((s) => ({ projects: [...s.projects, { ...p, id: uuidv4() }] })),
-      updateProject: (id, p) => set((s) => ({
-        projects: s.projects.map((proj) => proj.id === id ? { ...proj, ...p } : proj)
-      })),
-      deleteProject: (id) => set((s) => ({ projects: s.projects.filter(p => p.id !== id) })),
+      addProject: (p) =>
+        set((s) => ({ projects: [...s.projects, { ...p, id: uuidv4() }] })),
+      updateProject: (id, p) =>
+        set((s) => ({
+          projects: s.projects.map((proj) =>
+            proj.id === id ? { ...proj, ...p } : proj,
+          ),
+        })),
+      deleteProject: (id) =>
+        set((s) => ({ projects: s.projects.filter((p) => p.id !== id) })),
 
-      addOverride: (o) => set((s) => ({ overrides: [...s.overrides, { ...o, id: uuidv4() }] })),
-      updateOverride: (id, o) => set((s) => ({
-        overrides: s.overrides.map((ov) => ov.id === id ? { ...ov, ...o } : ov)
-      })),
-      deleteOverride: (id) => set((s) => ({ overrides: s.overrides.filter(o => o.id !== id) })),
+      addOverride: (o) =>
+        set((s) => ({ overrides: [...s.overrides, { ...o, id: uuidv4() }] })),
+      updateOverride: (id, o) =>
+        set((s) => ({
+          overrides: s.overrides.map((ov) =>
+            ov.id === id ? { ...ov, ...o } : ov,
+          ),
+        })),
+      deleteOverride: (id) =>
+        set((s) => ({ overrides: s.overrides.filter((o) => o.id !== id) })),
 
-      addPreset: (p) => set((s) => ({ presets: [...s.presets, { ...p, id: uuidv4() }] })),
-      deletePreset: (id) => set((s) => ({ presets: s.presets.filter(p => p.id !== id) })),
+      addPreset: (p) =>
+        set((s) => ({ presets: [...s.presets, { ...p, id: uuidv4() }] })),
+      deletePreset: (id) =>
+        set((s) => ({ presets: s.presets.filter((p) => p.id !== id) })),
 
-      updateSchema: (projectId, keys) => set((s) => {
-        const otherSchemas = s.schemas.filter(sc => sc.projectId !== projectId);
-        return { schemas: [...otherSchemas, { projectId, keys }] };
-      }),
+      updateSchema: (projectId, keys) =>
+        set((s) => {
+          const otherSchemas = s.schemas.filter(
+            (sc) => sc.projectId !== projectId,
+          );
+          return { schemas: [...otherSchemas, { projectId, keys }] };
+        }),
 
-      setValue: (hash, value) => set((s) => ({ values: { ...s.values, [hash]: value } })),
+      setValue: (hash, value) =>
+        set((s) => ({ values: { ...s.values, [hash]: value } })),
       setPrivacyMode: (mode) => set({ privacyMode: mode }),
       setTheme: (theme) => set({ theme }),
 
       exportState: () => {
         const state = get();
-        return JSON.stringify({
-          exportedAt: new Date().toISOString(),
-          projects: state.projects,
-          presets: state.presets,
-          overrides: state.overrides,
-          schemas: state.schemas,
-          values: state.values,
-          theme: state.theme
-        }, null, 2);
+        return JSON.stringify(
+          {
+            exportedAt: new Date().toISOString(),
+            projects: state.projects,
+            presets: state.presets,
+            overrides: state.overrides,
+            schemas: state.schemas,
+            values: state.values,
+            theme: state.theme,
+          },
+          null,
+          2,
+        );
       },
       importState: (json) => {
         try {
@@ -154,26 +173,31 @@ export const useEnvStore = create<EnvStore>()(
             overrides: parsed.overrides,
             schemas: parsed.schemas,
             values: parsed.values,
-            theme: parsed.theme || "liquid-glass-dark"
+            theme: parsed.theme || "liquid-glass-dark",
           });
         } catch (e) {
           console.error("Failed to import state:", e);
         }
       },
-      clearAllData: () => set({
-        projects: [],
-        presets: [],
-        overrides: [
-          { id: "1", name: "Stage", options: ["DEV", "TEST", "PRELIVE", "PROD"] },
-          { id: "2", name: "Client", options: ["CLIENT-A", "CLIENT-B"] }
-        ],
-        schemas: [],
-        values: {},
-      })
+      clearAllData: () =>
+        set({
+          projects: [],
+          presets: [],
+          overrides: [
+            {
+              id: "1",
+              name: "Stage",
+              options: ["DEV", "TEST", "PRELIVE", "PROD"],
+            },
+            { id: "2", name: "Client", options: ["CLIENT-A", "CLIENT-B"] },
+          ],
+          schemas: [],
+          values: {},
+        }),
     }),
     {
       name: "env-orchestrator-storage",
       storage: createJSONStorage(() => encryptedStorage),
-    }
-  )
+    },
+  ),
 );

@@ -20,7 +20,7 @@ export default function Home() {
       name: newProjectName,
       description: newProjectDesc,
       tags: "",
-      technology: []
+      technology: [],
     });
     setNewProjectName("");
     setNewProjectDesc("");
@@ -33,11 +33,17 @@ export default function Home() {
           <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent inline-block">
             OmniEnv
           </h1>
-          <p className="text-muted-foreground mt-2">The only Zero-persistence environment orchestrator tool you will ever need.</p>
+          <p className="text-muted-foreground mt-2">
+            The only Zero-persistence environment orchestrator tool you will
+            ever need.
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <Link href="/docs">
-            <Button variant="ghost" className="glass-panel text-muted-foreground hover:text-primary">
+            <Button
+              variant="ghost"
+              className="glass-panel text-muted-foreground hover:text-primary"
+            >
               <BookOpen className="w-4 h-4 mr-2" /> Documentation
             </Button>
           </Link>
@@ -66,12 +72,17 @@ export default function Home() {
               value={newProjectDesc}
               onChange={(e) => setNewProjectDesc(e.target.value)}
             />
-            <Button type="submit" className="w-full">Create</Button>
+            <Button type="submit" className="w-full">
+              Create
+            </Button>
           </form>
         </div>
 
-        {projects.map(proj => (
-          <div key={proj.id} className="glass-panel p-6 rounded-xl flex flex-col relative group">
+        {projects.map((proj) => (
+          <div
+            key={proj.id}
+            className="glass-panel p-6 rounded-xl flex flex-col relative group"
+          >
             <button
               onClick={() => deleteProject(proj.id)}
               className="absolute top-4 right-4 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
@@ -84,11 +95,15 @@ export default function Home() {
               </div>
               <h3 className="font-semibold text-xl">{proj.name}</h3>
             </div>
-            <p className="text-sm text-muted-foreground mb-6 flex-1">{proj.description || "No description provided."}</p>
+            <p className="text-sm text-muted-foreground mb-6 flex-1">
+              {proj.description || "No description provided."}
+            </p>
 
             <div className="flex gap-2">
               <Link href={`/projects/${proj.id}`} className="flex-1">
-                <Button variant="outline" className="w-full">Edit Schema</Button>
+                <Button variant="outline" className="w-full">
+                  Edit Schema
+                </Button>
               </Link>
               <Link href={`/projects/${proj.id}/matrix`} className="flex-1">
                 <Button className="w-full">Generator</Button>
@@ -96,7 +111,6 @@ export default function Home() {
             </div>
           </div>
         ))}
-
       </section>
     </div>
   );
